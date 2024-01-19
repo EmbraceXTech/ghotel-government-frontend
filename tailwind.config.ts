@@ -12,6 +12,7 @@ const config: Config = {
     extend: {
       colors: {
         brand: "#B497EE",
+        "brand-sec": "#44297E",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",

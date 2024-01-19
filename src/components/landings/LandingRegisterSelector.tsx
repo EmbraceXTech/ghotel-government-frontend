@@ -1,20 +1,20 @@
-import { Backpack, Briefcase } from "lucide-react";
+import { Backpack, Hotel } from "lucide-react";
 import React from "react";
 import { Button } from "@nextui-org/react";
 import { useRouter } from "next/router";
 
-export default function RegisterSelector() {
+export default function LandingRegisterSelector() {
   const router = useRouter();
 
   return (
-    <div className="flex justify-center space-x-14">
-      <div className="rounded-lg border w-[400px] h-[300px] flex items-center p-10 flex-col">
+    <div className="w-full flex justify-between">
+      <div className="rounded-lg border w-[410px] h-[260px] flex items-center justify-center px-16 flex-col">
         <Backpack
           className="text-brand bg-slate-100 rounded-full p-3"
-          size={60}
+          size={55}
         />
-        <p className="font-medium mt-5">Traveler</p>
-        <p className="text-center text-gray-400 mt-3">
+        <p className="font-medium mt-3">Traveler</p>
+        <p className="text-center text-sm text-gray-400 mt-3">
           Complete identity verification to access all Ghotel services
         </p>
         <Button
@@ -25,13 +25,10 @@ export default function RegisterSelector() {
           Register
         </Button>
       </div>
-      <div className="rounded-lg border w-[400px] h-[300px] flex items-center p-10 flex-col">
-        <Briefcase
-          className="text-brand bg-slate-100 rounded-full p-3"
-          size={60}
-        />
-        <p className="font-medium mt-5">Business</p>
-        <p className="text-center text-gray-400 mt-3">
+      <div className="rounded-lg border w-[410px] h-[260px] flex items-center justify-center px-16 flex-col">
+        <Hotel className="text-brand bg-slate-100 rounded-full p-3" size={55} />
+        <p className="font-medium mt-3">Business</p>
+        <p className="text-center text-sm text-gray-400 mt-3">
           Complete identity verification to access all Ghotel services
         </p>
         <Button

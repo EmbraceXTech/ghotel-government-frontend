@@ -2,7 +2,7 @@ import React from "react";
 
 export default function HeaderRightBg() {
   return (
-    <div>
+    <div className="absolute right-0 bottom-0">
       <svg
         width="489"
         height="192"
@@ -15,7 +15,7 @@ export default function HeaderRightBg() {
           width="500"
           height="192"
           fill="url(#pattern0)"
-          fill-opacity="0.2"
+          fillOpacity="0.2"
         />
         <defs>
           <pattern
