@@ -14,7 +14,7 @@ export default function MainLayout({
       className={`${inter.className} h-screen w-full bg-slate-100 flex flex-col`}
     >
       <Navbar />
-      <div className="w-full bg-slate-100 flex-1"></div>
+      <div className="w-full bg-brand flex-1">{children}</div>
     </div>
   );
 }

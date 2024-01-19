@@ -10,6 +10,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      colors: {
+        brand: "#B497EE",
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
@@ -18,6 +21,25 @@ const config: Config = {
     },
   },
   darkMode: "class",
-  plugins: [nextui()],
+  plugins: [
+    nextui({
+      themes: {
+        light: {
+          colors: {
+            primary: {
+              DEFAULT: "#B497EE",
+            },
+          },
+        },
+        dark: {
+          colors: {
+            primary: {
+              DEFAULT: "#B497EE",
+            },
+          },
+        },
+      },
+    }),
+  ],
 };
 export default config;
