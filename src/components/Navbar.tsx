@@ -1,6 +1,6 @@
 import React from "react";
 import { ConnectKitButton } from "connectkit";
-import GhotelLogo from "./svgs/GhotelLogo";
+import SiteLogo from "./svgs/SiteLogo";
 import { useRouter } from "next/router";
 
 export default function Navbar() {
@@ -9,7 +9,7 @@ export default function Navbar() {
   return (
     <div className="flex items-center w-full min-h-20 bg-white px-[150px] justify-between border-b">
       <div className="cursor-pointer" onClick={() => router.replace("/")}>
-        <GhotelLogo />
+        <SiteLogo />
       </div>
       <ConnectKitButton mode="light" />
     </div>

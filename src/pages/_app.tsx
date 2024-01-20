@@ -17,7 +17,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <NextUIProvider>
       <WagmiConfig config={config}>
-        <ConnectKitProvider>
+        <ConnectKitProvider theme="nouns">
           <MainLayout>
             <Component {...pageProps} />
           </MainLayout>

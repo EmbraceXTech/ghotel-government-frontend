@@ -10,7 +10,7 @@ export default function MainLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className={`${inter.className} h-screen w-full flex flex-col`}>
+    <div className={`${inter.className} h-screen w-full flex flex-col light`}>
       <Navbar />
       {children}
     </div>

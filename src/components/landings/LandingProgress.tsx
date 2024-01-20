@@ -22,7 +22,7 @@ export default function LandingProgress() {
       <Progress
         isStriped
         aria-label="airdrop-progress"
-        color="secondary"
+        color="primary"
         value={60}
         className="w-full mt-5"
       />

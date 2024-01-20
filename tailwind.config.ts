@@ -11,8 +11,8 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        brand: "#B497EE",
-        "brand-sec": "#44297E",
+        brand: "#375BD2",
+        "brand-sec": "#0E255D",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
@@ -28,14 +28,14 @@ const config: Config = {
         light: {
           colors: {
             primary: {
-              DEFAULT: "#B497EE",
+              DEFAULT: "#375BD2",
             },
           },
         },
         dark: {
           colors: {
             primary: {
-              DEFAULT: "#B497EE",
+              DEFAULT: "#375BD2",
             },
           },
         },

@@ -1,36 +1,109 @@
 import HeaderLeftBg from "@/components/svgs/HeaderLeftBg";
 import { Button } from "@nextui-org/react";
 import { useRouter } from "next/router";
+import { Input, Select, SelectItem } from "@nextui-org/react";
+import { useAccount } from "wagmi";
+import { useState } from "react";
 
 export default function NewBusiness() {
   const router = useRouter();
+
+  const [businessType, setBusinessType] = useState("");
+  const [companyName, setCompanyName] = useState("");
+  const [companyAddress, setCompanyAddress] = useState("");
+  const [document, setDocument] = useState<File | undefined>(undefined);
+  const account = useAccount();
+  const [email, setEmail] = useState("");
+
+  const handleSubmit = (
+    e: React.FormEvent<HTMLFormElement | HTMLButtonElement>
+  ) => {
+    e.preventDefault();
+    console.log({
+      businessType: businessType,
+      companyName,
+      companyAddress,
+      document,
+      walletAddress: account.address,
+      email,
+    });
+  };
 
   return (
     <main className="w-full h-full flex items-center bg-gray-50">
       <div className="h-full w-[100px] lg:w-[420px] bg-brand">
         <HeaderLeftBg />
       </div>
-      <div className="h-full p-14 px-20">
+      <form onSubmit={handleSubmit} className="h-full p-14 px-20">
         <p className="font-bold">Business Registration</p>
         <p>
           Please provide the following information.{" "}
           <br className="hidden md:block" />
           Your information will only be used for verification purpose.
         </p>
-        <div className="flex space-x-3">
+        <p className="text-sm mt-5 mb-1">Business Type</p>
+        <Select
+          value={businessType}
+          onChange={(e) => setBusinessType(e.target.value)}
+          isRequired
+          placeholder="Select an business type"
+          labelPlacement="outside"
+          disableSelectorIconRotation
+        >
+          {["Hotel", "Restaurant"].map((item) => (
+            <SelectItem key={item} value={item}>
+              {item}
+            </SelectItem>
+          ))}
+        </Select>
+        <p className="text-sm mt-5 mb-1">Business Information</p>
+        <Input
+          value={companyName}
+          onChange={(e) => setCompanyName(e.target.value)}
+          isRequired
+          type="text"
+          label="Company Name"
+        />
+        <p className="text-sm mt-5 mb-1">Address</p>
+        <Input
+          value={companyAddress}
+          onChange={(e) => setCompanyAddress(e.target.value)}
+          isRequired
+          type="text"
+          label="Comapny Address"
+        />
+        <p className="text-sm mt-5 mb-1">Verification Document</p>
+        <Input onChange={(e) => setDocument(e.target.files?.[0])} type="file" />
+        <p className="text-sm mt-5 mb-1">Wallet Address</p>
+        <Input
+          isRequired
+          variant="faded"
+          value={account.address}
+          type="text"
+          disabled
+        />
+        <p className="text-sm mt-5 mb-1">Email</p>
+        <Input
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          isRequired
+          type="email"
+          label="Email"
+        />
+        <div className="flex space-x-3 mt-10">
           <Button
+            className="w-full"
             onClick={() => router.back()}
-            className="mt-7 w-40"
             color="primary"
             variant="bordered"
           >
             Back
           </Button>
-          <Button className="mt-7 w-40" color="primary">
+          <Button type="submit" className="w-full" color="primary">
             Register
           </Button>
         </div>
-      </div>
+      </form>
     </main>
   );
 }

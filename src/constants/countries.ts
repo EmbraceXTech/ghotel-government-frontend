@@ -1,4 +1,7 @@
 export const COUNTRIES = {
+  "United States": {
+    src: "https://flagcdn.com/us.svg",
+  },
   Argentina: {
     src: "https://flagcdn.com/ar.svg",
   },
