@@ -10,10 +10,13 @@ import {
 import { useAccount } from "wagmi";
 import { useState } from "react";
 import SuccessModal from "@/components/SuccessModal";
+import ghovernmentService from "@/services/ghovernment.service";
+import { toast } from "sonner";
 
 export default function NewBusiness() {
   const router = useRouter();
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const [isLoading, setIsLoading] = useState(false);
 
   const [businessType, setBusinessType] = useState("");
   const [companyName, setCompanyName] = useState("");
@@ -22,18 +25,30 @@ export default function NewBusiness() {
   const account = useAccount();
   const [email, setEmail] = useState("");
 
-  const handleSubmit = (
+  const handleSubmit = async (
     e: React.FormEvent<HTMLFormElement | HTMLButtonElement>
   ) => {
     e.preventDefault();
-    console.log({
-      businessType: businessType,
+    setIsLoading(true);
+    if (!account.address) {
+      setIsLoading(false);
+      return toast.error("Please connect your wallet.");
+    }
+    const { isExist } = await ghovernmentService
+      .checkBusiness(account.address.toLowerCase())
+      .then((res) => res.data);
+    if (isExist) {
+      setIsLoading(false);
+      return toast.error("Your wallet address has already registered.");
+    }
+    await ghovernmentService.createBusiness({
+      businessType,
       companyName,
       companyAddress,
-      document,
-      walletAddress: account.address,
+      walletAddress: account.address?.toLowerCase(),
       email,
     });
+    setIsLoading(false);
     onOpen();
   };
 
@@ -108,7 +123,13 @@ export default function NewBusiness() {
           >
             Back
           </Button>
-          <Button type="submit" className="w-full" color="primary">
+          <Button
+            isLoading={isLoading}
+            isDisabled={isLoading}
+            type="submit"
+            className="w-full"
+            color="primary"
+          >
             Register
           </Button>
         </div>

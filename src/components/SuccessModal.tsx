@@ -13,6 +13,7 @@ export default function SuccessModal({
   const router = useRouter();
   return (
     <Modal
+      closeButton={<></>}
       radius={"lg"}
       isOpen={isOpen}
       onOpenChange={onOpenChange}

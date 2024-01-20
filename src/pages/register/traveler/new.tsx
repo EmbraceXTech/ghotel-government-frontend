@@ -6,6 +6,8 @@ import { COUNTRIES } from "@/constants/countries";
 import { useState } from "react";
 import { useAccount } from "wagmi";
 import SuccessModal from "@/components/SuccessModal";
+import ghovernmentService from "@/services/ghovernment.service";
+import { toast } from "sonner";
 
 export default function NewTraveler() {
   const router = useRouter();
@@ -17,23 +19,35 @@ export default function NewTraveler() {
   const [document, setDocument] = useState<File | undefined>(undefined);
   const account = useAccount();
   const [email, setEmail] = useState("");
-
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = (
+  const handleSubmit = async (
     e: React.FormEvent<HTMLFormElement | HTMLButtonElement>
   ) => {
     e.preventDefault();
-    console.log({
+    setIsLoading(true);
+    if (!account.address) {
+      setIsLoading(false);
+      return toast.error("Please connect your wallet.");
+    }
+    const { isExist } = await ghovernmentService
+      .checkTraveler(account.address.toLowerCase())
+      .then((res) => res.data);
+    if (isExist) {
+      setIsLoading(false);
+      return toast.error("Your wallet address has already registered.");
+    }
+    await ghovernmentService.createTraveler({
       country,
       firstName,
       middleName,
       lastName,
       dob,
-      document,
-      walletAddress: account.address,
+      walletAddress: account.address?.toLowerCase(),
       email,
     });
+    setIsLoading(false);
     onOpen();
   };
 
@@ -148,7 +162,13 @@ export default function NewTraveler() {
           >
             Back
           </Button>
-          <Button type="submit" className="w-full" color="primary">
+          <Button
+            isLoading={isLoading}
+            isDisabled={isLoading}
+            type="submit"
+            className="w-full"
+            color="primary"
+          >
             Register
           </Button>
         </div>
