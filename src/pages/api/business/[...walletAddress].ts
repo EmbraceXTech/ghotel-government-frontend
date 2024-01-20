@@ -7,7 +7,6 @@ export default async function handler(
 ) {
   const { walletAddress } = req.query;
   if (walletAddress?.length) {
-    console.log(walletAddress[0]);
     let { db } = await connectToDatabase();
     const data = await db
       .collection("business")
