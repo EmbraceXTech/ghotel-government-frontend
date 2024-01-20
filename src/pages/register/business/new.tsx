@@ -1,12 +1,19 @@
 import HeaderLeftBg from "@/components/svgs/HeaderLeftBg";
-import { Button } from "@nextui-org/react";
 import { useRouter } from "next/router";
-import { Input, Select, SelectItem } from "@nextui-org/react";
+import {
+  Input,
+  Select,
+  SelectItem,
+  Button,
+  useDisclosure,
+} from "@nextui-org/react";
 import { useAccount } from "wagmi";
 import { useState } from "react";
+import SuccessModal from "@/components/SuccessModal";
 
 export default function NewBusiness() {
   const router = useRouter();
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   const [businessType, setBusinessType] = useState("");
   const [companyName, setCompanyName] = useState("");
@@ -27,10 +34,12 @@ export default function NewBusiness() {
       walletAddress: account.address,
       email,
     });
+    onOpen();
   };
 
   return (
     <main className="w-full h-full flex items-center bg-gray-50">
+      <SuccessModal onOpenChange={onOpenChange} isOpen={isOpen} />
       <div className="h-full w-[100px] lg:w-[420px] bg-brand">
         <HeaderLeftBg />
       </div>
