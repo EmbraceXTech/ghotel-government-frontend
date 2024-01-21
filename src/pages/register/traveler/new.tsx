@@ -52,9 +52,9 @@ export default function NewTraveler() {
   };
 
   return (
-    <main className="w-full h-full flex items-center bg-gray-50">
+    <main className="w-full flex items-center bg-gray-50">
       <SuccessModal onOpenChange={onOpenChange} isOpen={isOpen} />
-      <div className="h-full w-[100px] lg:w-[420px] bg-brand">
+      <div className="h-full w-[100px] lg:w-[420px] bg-brand relative">
         <HeaderLeftBg />
       </div>
       <form onSubmit={handleSubmit} className="h-full p-14 px-20">
