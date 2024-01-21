@@ -6,6 +6,7 @@ import MainLayout from "@/components/MainLayout";
 import { NextUIProvider } from "@nextui-org/react";
 import { Toaster } from "sonner";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { sepolia } from "wagmi/chains";
 
 const queryClient = new QueryClient();
 
@@ -13,6 +14,7 @@ const config = createConfig(
   getDefaultConfig({
     walletConnectProjectId: "fd839f8b382f493dcb9bbd6ebfb998a0",
     appName: "Ghotel Government",
+    chains: [sepolia],
   })
 );
 
