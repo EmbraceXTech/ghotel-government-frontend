@@ -1,8 +1,22 @@
-import React from "react";
-import { Progress } from "@nextui-org/react";
+import React, { useEffect, useState } from "react";
+import { Progress, Spinner } from "@nextui-org/react";
 import Image from "next/image";
+import { Tabs, Tab } from "@nextui-org/react";
+import { useQuery } from "react-query";
+import { BUSINESS_TYPE_MAP } from "@/constants/businessType";
+import contractService from "@/services/contract.service";
 
 export default function LandingProgress() {
+  const [businessType, setBusinessType] = useState("Hotel");
+
+  const { data, isLoading } = useQuery({
+    queryKey: ["tokenDetails", businessType],
+    queryFn: () =>
+      contractService.getAirdropStatus(
+        BUSINESS_TYPE_MAP[businessType as keyof typeof BUSINESS_TYPE_MAP]
+      ),
+  });
+
   return (
     <div className="w-full h-[140px] bg-white border rounded-lg -mt-[70px] mb-[50px] shadow-md py-5 px-7">
       <div className="flex">
@@ -14,10 +28,28 @@ export default function LandingProgress() {
         />
         <div className="ml-5">
           <p className="text-brand-sec font-bold">Current Airdrop Status</p>
-          <p className="text-sm text-gray-400">
-            The remaining vouchers are 313,555 / 1,000,000
-          </p>
+
+          {isLoading ? (
+            <Spinner size="sm" className="mt-1" />
+          ) : (
+            <p className="text-sm text-gray-400">
+              The remaining vouchers are {data?.remaining} / {data?.totalSupply}
+            </p>
+          )}
         </div>
+        <Tabs
+          onSelectionChange={(value) => {
+            setBusinessType(value as string);
+          }}
+          className="ml-auto"
+          color="primary"
+          aria-label="Tabs colors"
+          radius="full"
+        >
+          <Tab key="Hotel" title="Hotel" />
+          <Tab key="Food" title="Food" />
+          <Tab key="Flight" title="Flight" />
+        </Tabs>
       </div>
       <Progress
         isStriped

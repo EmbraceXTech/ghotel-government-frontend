@@ -74,7 +74,7 @@ export default function NewBusiness() {
           labelPlacement="outside"
           disableSelectorIconRotation
         >
-          {["Hotel", "Restaurant"].map((item) => (
+          {["Hotel", "Food", "Flight"].map((item) => (
             <SelectItem key={item} value={item}>
               {item}
             </SelectItem>
