@@ -1,5 +1,5 @@
 export const BUSINESS_TYPE_MAP = {
   Hotel: 0,
-  Food: 1,
-  Flight: 2,
+  Flight: 1,
+  Food: 2,
 };
