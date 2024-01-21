@@ -10,6 +10,11 @@ export default async function handler(
 ) {
   let { db } = await connectToDatabase();
   if (req.method === "POST") {
+    const data = await db
+      .collection("traveler")
+      .findOne({ walletAddress: req.body.walletAddress });
+    if (data) res.status(401).json({ message: "Already registered" });
+
     const GovHelper = GovHelper__factory.connect(addressList.GovHelper, signer);
 
     const tx = await GovHelper.whitelistTravelersAndAirdrop([

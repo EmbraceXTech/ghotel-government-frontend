@@ -33,7 +33,8 @@ export default function LandingProgress() {
             <Spinner size="sm" className="mt-1" />
           ) : (
             <p className="text-sm text-gray-400">
-              The remaining vouchers are {data?.remaining} / {data?.totalSupply}
+              The remaining {businessType.toLocaleLowerCase()} voucher are{" "}
+              {data?.remaining} out of {data?.totalSupply} left.
             </p>
           )}
         </div>
@@ -55,7 +56,14 @@ export default function LandingProgress() {
         isStriped
         aria-label="airdrop-progress"
         color="primary"
-        value={60}
+        value={
+          isLoading || !data?.totalSupply || !data?.remaining
+            ? 0
+            : Math.round(
+                ((+data?.totalSupply - +data?.remaining) / +data?.totalSupply) *
+                  100
+              )
+        }
         className="w-full mt-5"
       />
     </div>

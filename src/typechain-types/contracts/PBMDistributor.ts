@@ -27,8 +27,11 @@ export interface PBMDistributorInterface extends Interface {
   getFunction(
     nameOrSignature:
       | "distributePBM"
+      | "onERC1155BatchReceived"
+      | "onERC1155Received"
       | "owner"
       | "renounceOwnership"
+      | "supportsInterface"
       | "transferOwnership"
   ): FunctionFragment;
 
@@ -44,10 +47,28 @@ export interface PBMDistributorInterface extends Interface {
       BytesLike
     ]
   ): string;
+  encodeFunctionData(
+    functionFragment: "onERC1155BatchReceived",
+    values: [
+      AddressLike,
+      AddressLike,
+      BigNumberish[],
+      BigNumberish[],
+      BytesLike
+    ]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "onERC1155Received",
+    values: [AddressLike, AddressLike, BigNumberish, BigNumberish, BytesLike]
+  ): string;
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "renounceOwnership",
     values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "supportsInterface",
+    values: [BytesLike]
   ): string;
   encodeFunctionData(
     functionFragment: "transferOwnership",
@@ -58,9 +79,21 @@ export interface PBMDistributorInterface extends Interface {
     functionFragment: "distributePBM",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(
+    functionFragment: "onERC1155BatchReceived",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "onERC1155Received",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "renounceOwnership",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "supportsInterface",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -137,9 +170,39 @@ export interface PBMDistributor extends BaseContract {
     "nonpayable"
   >;
 
+  onERC1155BatchReceived: TypedContractMethod<
+    [
+      operator: AddressLike,
+      from: AddressLike,
+      ids: BigNumberish[],
+      values: BigNumberish[],
+      data: BytesLike
+    ],
+    [string],
+    "nonpayable"
+  >;
+
+  onERC1155Received: TypedContractMethod<
+    [
+      operator: AddressLike,
+      from: AddressLike,
+      id: BigNumberish,
+      value: BigNumberish,
+      data: BytesLike
+    ],
+    [string],
+    "nonpayable"
+  >;
+
   owner: TypedContractMethod<[], [string], "view">;
 
   renounceOwnership: TypedContractMethod<[], [void], "nonpayable">;
+
+  supportsInterface: TypedContractMethod<
+    [interfaceId: BytesLike],
+    [boolean],
+    "view"
+  >;
 
   transferOwnership: TypedContractMethod<
     [newOwner: AddressLike],
@@ -165,11 +228,40 @@ export interface PBMDistributor extends BaseContract {
     "nonpayable"
   >;
   getFunction(
+    nameOrSignature: "onERC1155BatchReceived"
+  ): TypedContractMethod<
+    [
+      operator: AddressLike,
+      from: AddressLike,
+      ids: BigNumberish[],
+      values: BigNumberish[],
+      data: BytesLike
+    ],
+    [string],
+    "nonpayable"
+  >;
+  getFunction(
+    nameOrSignature: "onERC1155Received"
+  ): TypedContractMethod<
+    [
+      operator: AddressLike,
+      from: AddressLike,
+      id: BigNumberish,
+      value: BigNumberish,
+      data: BytesLike
+    ],
+    [string],
+    "nonpayable"
+  >;
+  getFunction(
     nameOrSignature: "owner"
   ): TypedContractMethod<[], [string], "view">;
   getFunction(
     nameOrSignature: "renounceOwnership"
   ): TypedContractMethod<[], [void], "nonpayable">;
+  getFunction(
+    nameOrSignature: "supportsInterface"
+  ): TypedContractMethod<[interfaceId: BytesLike], [boolean], "view">;
   getFunction(
     nameOrSignature: "transferOwnership"
   ): TypedContractMethod<[newOwner: AddressLike], [void], "nonpayable">;
